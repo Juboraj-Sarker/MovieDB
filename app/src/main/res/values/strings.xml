@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MCC Technical Test</string>
+    <string name="text_remote_technical_test">Remote Technical Test</string>
+    <string name="candidate_name">Candidate name: JUBORAJ SARKER</string>
 </resources>
