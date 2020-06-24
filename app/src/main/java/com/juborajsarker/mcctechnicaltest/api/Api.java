@@ -11,6 +11,7 @@ import retrofit2.http.Url;
 public interface Api {
 
     String API_KEY = "f67eb4618b835130ec605da7bf25c679";
+    String API_KEY_GOOGLE = "AIzaSyAo-_Xwjb5R6gxG3YCb82hF3PUExzKb4_k";
 
     String BASE_URL_MOVIE = "http://api.themoviedb.org/3/movie/";    // http://api.themoviedb.org/3/movie/popular?api_key=f67eb4618b835130ec605da7bf25c679
     String BASE_URL_THUMBNAIL = "https://image.tmdb.org/t/p/w185/";   // http://image.tmdb.org/t/p/w185/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg

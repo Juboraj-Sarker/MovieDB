@@ -1,12 +1,15 @@
 package com.juborajsarker.mcctechnicaltest.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.juborajsarker.mcctechnicaltest.R;
+import com.juborajsarker.mcctechnicaltest.activity.TrailerActivity;
 import com.juborajsarker.mcctechnicaltest.model.Thumbnail;
 import com.juborajsarker.mcctechnicaltest.model.trailer.Result;
 
@@ -29,10 +32,13 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvTrailer;
+        LinearLayout layoutTrailer;
+
         public MyViewHolder(@NonNull View view) {
             super(view);
 
-            tvTrailer = view.findViewById(R.id.tv_trailer);
+            tvTrailer = (TextView) view.findViewById(R.id.tv_trailer);
+            layoutTrailer = (LinearLayout) view.findViewById(R.id.layout_trailer);
         }
     }
 
@@ -48,10 +54,19 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.MyViewHo
         Result trailer = trailerList.get(position);
         String name = trailer.getName();
         String type = trailer.getType();
-        String key = trailer.getKey();
+        final String key = trailer.getKey();
         String site = trailer.getSite();
 
         holder.tvTrailer.setText(name);
+
+        holder.layoutTrailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TrailerActivity.class);
+                intent.putExtra("video_id", key);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -10,11 +10,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+import android.app.ActionBar;
 import android.content.res.Resources;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,14 +37,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DetailsActivity extends AppCompatActivity {
+
 
     TextView tvMovieName, tvYear, tvLength, tvRating, tvDetails;
     ImageView ivMovie;
     RecyclerView rvTrailer;
     List<Result> trailerList = new ArrayList<>();
     TrailerAdapter adapter;
+    List<Result> myTrailerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,11 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
+
         tvMovieName = (TextView) findViewById(R.id.tv_movie_name);
         tvYear = (TextView) findViewById(R.id.tv_year);
         tvLength = (TextView) findViewById(R.id.tv_length);
@@ -137,7 +149,13 @@ public class DetailsActivity extends AppCompatActivity {
                    Trailer trailer = response.body();
                    trailerList = trailer.getResults();
 
-                   setRecyclerView(trailerList);
+                   for (int i=0; i<trailerList.size(); i++){
+                       Result singleTrailer = trailerList.get(i);
+                       if (singleTrailer.getType().equals("Trailer")){
+                           myTrailerList.add(singleTrailer);
+                       }
+                   }
+                   setRecyclerView(myTrailerList);
 
                 }
             }
@@ -166,5 +184,26 @@ public class DetailsActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:{
+
+                super.onBackPressed();
+
+            }default:{
+
+                return super.onOptionsItemSelected(item);
+            }
+
+
+
+        }
+
     }
 }
