@@ -1,4 +1,4 @@
-package com.juborajsarker.mcctechnicaltest;
+package com.juborajsarker.mcctechnicaltest.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,10 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
 
+import com.juborajsarker.mcctechnicaltest.R;
 import com.juborajsarker.mcctechnicaltest.adapter.MovieAdapter;
 import com.juborajsarker.mcctechnicaltest.api.Api;
 import com.juborajsarker.mcctechnicaltest.model.Thumbnail;
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     List<Result> movieList = new ArrayList<>();
     MovieAdapter adapter;
 
+    private Parcelable recyclerViewState;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         rvMovie = (RecyclerView) findViewById(R.id.rv_movie);
-
         String restUrl = "popular?api_key=" + Api.API_KEY;
         fetchMovieListFromApi(restUrl);
     }
@@ -94,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadThumbnailFromApi(List<Thumbnail> thumbnailList) {
 
         adapter = new MovieAdapter(MainActivity.this, thumbnailList, rvMovie);
-        RecyclerView.LayoutManager layoutManagerBeforeMeal = new GridLayoutManager(MainActivity.this, 2);
-        rvMovie.setLayoutManager(layoutManagerBeforeMeal);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
+        rvMovie.setLayoutManager(layoutManager);
         rvMovie.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(2), true));
         rvMovie.setItemAnimator(new DefaultItemAnimator());
 
@@ -108,5 +113,69 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+
+
+
+
+
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            recyclerViewState = rvMovie.getLayoutManager().onSaveInstanceState();//save
+        }catch (Exception e){
+            Log.d("ERR_FOUND_RV", e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            rvMovie.getLayoutManager().onRestoreInstanceState(recyclerViewState);//restore
+        }catch (Exception e){
+            Log.d("ERR_FOUND_RV", e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

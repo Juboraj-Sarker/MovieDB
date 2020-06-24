@@ -19,7 +19,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder >{
 
     private Context context;
     private List<Thumbnail> thumbnailList;
@@ -87,4 +87,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public int getItemCount() {
         return thumbnailList.size();
     }
+
+
 }

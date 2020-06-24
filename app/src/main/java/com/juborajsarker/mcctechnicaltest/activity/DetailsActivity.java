@@ -11,9 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-import android.app.ActionBar;
 import android.content.res.Resources;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,13 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.juborajsarker.mcctechnicaltest.MainActivity;
 import com.juborajsarker.mcctechnicaltest.R;
-import com.juborajsarker.mcctechnicaltest.adapter.MovieAdapter;
 import com.juborajsarker.mcctechnicaltest.adapter.TrailerAdapter;
 import com.juborajsarker.mcctechnicaltest.api.Api;
 import com.juborajsarker.mcctechnicaltest.model.details.Details;
-import com.juborajsarker.mcctechnicaltest.model.movie.Movies;
 import com.juborajsarker.mcctechnicaltest.model.trailer.Result;
 import com.juborajsarker.mcctechnicaltest.model.trailer.Trailer;
 import com.juborajsarker.mcctechnicaltest.utils.GridSpacingItemDecoration;

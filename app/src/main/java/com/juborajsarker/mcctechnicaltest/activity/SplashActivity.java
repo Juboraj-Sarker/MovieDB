@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.juborajsarker.mcctechnicaltest.MainActivity;
 import com.juborajsarker.mcctechnicaltest.R;
 
 public class SplashActivity extends AppCompatActivity {
